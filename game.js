@@ -1,14 +1,18 @@
 let canvas = document.getElementById("game");
 let ctx = canvas.getContext("2d");
-ctx.font = "20px Arial";
+ctx.font = "23px Arial";
+ctx.strokeStyle = "#ff0000";
 ctx.strokeText("Game xếp hình", 640, 40);
-
+ctx.font = "14px sans-serif";
+ctx.strokeText("By Thek", 670, 70);
+let score = 0;
+let resul = 0;
 let row = 15;
 let col = 20;
 let sq = 35;
 let COLOR = "white";
 let gameOver = false;
-let score = 0;
+
 let interval;
 //Hàm vẽ 1 ô vuông có màu trắng viền xám
 function drawsquare(x, y, COLOR) {
@@ -48,6 +52,7 @@ class Piece {
 
     this.x = x;
     this.y = y;
+    
   }
   //Phương thức đổ màu cho mảnh ghép
   fill(color) {
@@ -196,7 +201,6 @@ function randomPiece() {
 
 let p = randomPiece();
 console.log(p);
-
 document.addEventListener("keydown", function (e) {
   if (e.keyCode == 37) {
     p.moveLeft();
@@ -219,15 +223,9 @@ function move() {
 }
 
 function drop() {
-  
     interval = setInterval(move, 1000);
-  
 }
-
 drop();
-
-const RESET = [[O, "white"]];
-let clear = new Piece([]);
 
 function playAgain() {
   for (let r = 0; r < row; r++) {
@@ -236,6 +234,8 @@ function playAgain() {
     }
   }
   drawboard();
+  score = 0;
+  document.getElementById("score").innerHTML = "Điểm: " + score;
   gameOver = false;
   clearInterval(interval);
   p = randomPiece()
